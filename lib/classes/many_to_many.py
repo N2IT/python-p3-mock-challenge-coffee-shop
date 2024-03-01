@@ -19,7 +19,7 @@ class Coffee:
                 self._name = name
 
     def orders(self):
-        pass
+        return [ ]
     
     def customers(self):
         pass
@@ -82,6 +82,24 @@ class Order:
         #connect to Customer
         self.customer._coffees.append(self.coffee)
         self.customer._orders.append(self)
+    
+    @property
+    def customer(self):
+        return self._customer
+
+    @customer.setter
+    def customer(self, customer):
+        if isinstance(customer, Customer):
+            self._customer = customer
+
+    @property
+    def coffee(self):
+        return self._coffee
+
+    @coffee.setter
+    def coffee(self, coffee):
+        if isinstance(coffee, Coffee):
+            serf._coffee = coffee
 
     @property
     def price(self):
