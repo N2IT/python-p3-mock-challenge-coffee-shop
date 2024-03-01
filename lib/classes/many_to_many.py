@@ -50,7 +50,6 @@ class Coffee:
         order_count = len(coffee_orders)
         return order_value / order_count
 
-
     def __repr__(self):
         return f"{self.name}"
 
@@ -74,14 +73,22 @@ class Customer:
             self._name = name
         
     def orders(self):
-        pass
+        return [ order for order in Order.all if order.customer == self ]
     
     def coffees(self):
-        pass
+        coffees_ordered = []
+        for order in Order.all:
+            if order.customer == self:
+                if order.coffee not in coffees_ordered:
+                    coffees_ordered.append(order.coffee)
+        return coffees_ordered
     
     def create_order(self, coffee, price):
-        pass
-    
+        order = Order(self, coffee, price)
+        if isinstance(order, Order):
+            return order
+
+            
     def __repr__(self):
         return f"{self.name}"
 
