@@ -54,8 +54,12 @@ class Coffee:
         return f"{self.name}"
 
 class Customer:
+
+    all = []
+
     def __init__(self, name):
         self.name = name
+        Customer.all.append(self)
 
         # attritute for Coffee
         self._coffees = []
@@ -88,7 +92,21 @@ class Customer:
         if isinstance(order, Order):
             return order
 
-            
+    @classmethod
+    def most_aficionado(cls, coffee):
+        customer_spend = {}
+        for order in Order.all:
+            if order.coffee == coffee:
+                if order.customer not in customer_spend:
+                    customer_spend[order.customer] = order.price
+                else:
+                    customer_spend[order.customer] += order.price
+        return max(customer_spend, key = customer_spend.get)
+
+    # iterate through each order within the Order.all list
+    # append 
+
+
     def __repr__(self):
         return f"{self.name}"
 
@@ -100,7 +118,7 @@ class Order:
     def __init__(self, customer, coffee, price):
         self.customer = customer
         self.coffee = coffee
-        self.price = price
+        self._price = price
         Order.all.append(self)
 
         # connect to Coffee
