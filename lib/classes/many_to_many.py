@@ -40,7 +40,16 @@ class Coffee:
         return coffee_tracker[self]
     
     def average_price(self):
-        pass
+        coffee_orders = []
+        # order_value = sum(coffee_orders)
+        # order_count = len(coffee_orders)
+        for order in Order.all:
+            if order.coffee == self:
+                coffee_orders.append(order.price)
+        order_value = sum(coffee_orders)
+        order_count = len(coffee_orders)
+        return order_value / order_count
+
 
     def __repr__(self):
         return f"{self.name}"
