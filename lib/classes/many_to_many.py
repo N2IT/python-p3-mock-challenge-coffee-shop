@@ -32,12 +32,12 @@ class Coffee:
     def num_orders(self):
         coffee_tracker = {}
         for order in Order.all:
-            if order.coffee == self:
-                if order.coffee in coffee_tracker:
-                    coffee_tracker[order.coffee] += 1
-                else:
-                    coffee_tracker[order.coffee] = 0
-        return coffee_tracker
+            if order.coffee not in coffee_tracker:
+                coffee_tracker[self] = 0
+            else:
+                coffee_tracker[self] += 1
+
+        return coffee_tracker[self]
     
     def average_price(self):
         pass
