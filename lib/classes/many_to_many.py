@@ -6,7 +6,7 @@ class Coffee:
         self._customers = []
 
         # attribute for Order
-        self._order = []
+        self._orders = []
     
     @property
     def name(self):
@@ -31,7 +31,7 @@ class Coffee:
         pass
 
     def __repr__(self):
-        return f"Coffee: {self.name}"
+        return f"{self.name}"
 
 class Customer:
     def __init__(self, name):
@@ -62,7 +62,7 @@ class Customer:
         pass
     
     def __repr__(self):
-        return f"Customer: {self.name}"
+        return f"{self.name}"
 
     
 class Order:
@@ -74,6 +74,14 @@ class Order:
         self.coffee = coffee
         self.price = price
         Order.all.append(self)
+
+        # connect to Coffee
+        self.coffee._customers.append(self.customer)
+        self.coffee._orders.append(self)
+
+        #connect to Customer
+        self.customer._coffees.append(self.coffee)
+        self.customer._orders.append(self)
 
     @property
     def price(self):
