@@ -19,13 +19,25 @@ class Coffee:
                 self._name = name
 
     def orders(self):
-        return [ ]
+        return [ order for order in Order.all if order.coffee == self ]
     
     def customers(self):
-        pass
+        coffee_customers = []
+        for order in Order.all:
+            if order.coffee == self:
+                if order.customer not in coffee_customers:
+                    coffee_customers.append(order.customer)
+        return coffee_customers
     
     def num_orders(self):
-        pass
+        coffee_tracker = {}
+        for order in Order.all:
+            if order.coffee == self:
+                if order.coffee in coffee_tracker:
+                    coffee_tracker[order.coffee] += 1
+                else:
+                    coffee_tracker[order.coffee] = 0
+        return coffee_tracker
     
     def average_price(self):
         pass
@@ -99,7 +111,7 @@ class Order:
     @coffee.setter
     def coffee(self, coffee):
         if isinstance(coffee, Coffee):
-            serf._coffee = coffee
+            self._coffee = coffee
 
     @property
     def price(self):
